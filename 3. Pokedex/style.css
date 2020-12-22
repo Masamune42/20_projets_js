@@ -98,3 +98,54 @@ ul {
 .liste-poke p {
     font-size: 18px;
 }
+
+/* Animation du loader */
+
+.loader {
+    position: absolute;
+    top: 250px;
+    /* On centre la div avec les 2 paramètres suivants */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 100px;
+    /* Aligne les éléments de la liste */
+    display: flex;
+    /* Centre horizontalement tous les éléments */
+    justify-content: center;
+    /* Centre verticalement tous les éléments */
+    align-items: center;
+}
+
+.point {
+    margin: 0px 5px;
+    /* Taille des points */
+    width: 20px;
+    height: 20px;
+    /* Arrondi la forme */
+    border-radius: 50%;
+    /* Fond blanc */
+    background: #f1f1f1;
+    /* Animation qui dure 0.3s qui alterne durant un temps infini */
+    animation: monte 0.3s alternate infinite;
+}
+
+/* Animation des points: translation verticale de 30px vers le haut */
+@keyframes monte {
+    100% {
+        transform: translateY(-30px);
+    }
+}
+
+/* On défini pour chaque point son délai avant début de l'animation */
+.point:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.point:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.point:nth-child(3) {
+    animation-delay: 0.3s;
+}

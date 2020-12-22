@@ -3,6 +3,11 @@ let tableauFin = [];
 
 const searchInput = document.querySelector('.recherche-poke input');
 const listePoke = document.querySelector('.liste-poke');
+const chargement = document.querySelector('.loader');
+
+// Ajout perso
+const NB_TOTAL_POKEMON = 386;
+const NB_AFFICHE_BASE = 21;
 
 // Tableau des couleurs par type
 const types = {
@@ -28,7 +33,7 @@ const types = {
 
 function fetchPokemonBase() {
     // Appel de l'API pour récupérer les 251 1ers Pokémons
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=251")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=" + NB_TOTAL_POKEMON)
         .then(reponse => reponse.json())
         .then((allPoke) => {
             allPoke.results.forEach((pokemon) => {
@@ -42,7 +47,7 @@ fetchPokemonBase();
 function fetchPokemonComplet(pokemon) {
     let objPokemonFull = {};
     let url = pokemon.url;
-    let nameP = pokemon.name;
+    // let nameP = pokemon.name;
 
     // On fetch chaque Pokémon pour récupérer ses informations complètes
     fetch(url)
@@ -54,8 +59,9 @@ function fetchPokemonComplet(pokemon) {
             objPokemonFull.type = pokeData.types[0].type.name;
             // ID du Pokémon
             objPokemonFull.id = pokeData.id;
-
-            fetch(`https://pokeapi.co/api/v2/pokemon-species/${nameP}`)
+            // On recherche le Pokemon avec son id
+            // De base : recherche avec son nom => nameP
+            fetch(`https://pokeapi.co/api/v2/pokemon-species/${objPokemonFull.id}`)
                 .then(reponse => reponse.json())
                 .then((pokeData) => {
                     // On rempli la propriété name avec le nom français
@@ -67,14 +73,16 @@ function fetchPokemonComplet(pokemon) {
                     allPokemon.push(objPokemonFull);
 
                     // Quand on a chargé tous nos Pokémon
-                    if (allPokemon.length === 251) {
+                    if (allPokemon.length === NB_TOTAL_POKEMON) {
                         // On trie le tableau
                         tableauFin = allPokemon.sort((a, b) => {
                             return a.id - b.id;
                         })
-                            .slice(0, 21);
+                            .slice(0, NB_AFFICHE_BASE);
 
                         createCard(tableauFin);
+                        // On masque les points de chargement
+                        chargement.style.display = "none";
                     }
                 });
         });
@@ -118,10 +126,10 @@ window.addEventListener('scroll', () => {
     }
 })
 
-let index = 21;
+let index = NB_AFFICHE_BASE;
 
 function addPoke(nb) {
-    if (index > 251) {
+    if (index > NB_TOTAL_POKEMON) {
         return;
     }
     const arrToAdd = allPokemon.slice(index, index + nb);
@@ -141,21 +149,27 @@ searchInput.addEventListener('keyup', recherche);
 // })
 
 function recherche() {
-    if (index < 251) {
+    if (index < NB_TOTAL_POKEMON) {
         // Quand on fait une recherche on veut afficher tous les Pokémon d'abord avant de faire la recherche, donc on les ajoute
-        addPoke(230);
+        addPoke(NB_TOTAL_POKEMON - NB_AFFICHE_BASE);
     }
 
     let filter, allLi, titleValue, allTitles;
+    // On effectue la recherche en majuscule
     filter = searchInput.value.toUpperCase();
+    // On sélectionne tous les éléments de liste (Pokémon)
     allLi = document.querySelectorAll('li');
+    // On sélectionne tous les h5 (noms de Pokémons)
     allTitles = document.querySelectorAll('li > h5');
 
+    // Pour chaque Pokémon
     for (let i = 0; i < allLi.length; i++) {
+        // On récupère le nom du Pokémon au même indice
         titleValue = allTitles[i].innerText;
-        if(titleValue.toUpperCase().indexOf(filter) > -1) {
+        // Si la recherche fait partie du nom du Pokémon, display flex (sert à réafficher les Pokémons masqués durant la dernière recherche)
+        if (titleValue.toUpperCase().indexOf(filter) > -1) {
             allLi[i].style.display = "flex";
-        } else {
+        } else { // Sinon, on masque le Pokémon
             allLi[i].style.display = "none";
         }
     }
