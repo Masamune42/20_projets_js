@@ -1,4 +1,6 @@
-*, ::before, ::after {
+*,
+::before,
+::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -81,13 +83,15 @@ h1 {
     grid-area: 4 / 1 / 5 / -1;
 }
 
-.jour-prevision-bloc, .heure-bloc-prevision {
+.jour-prevision-bloc,
+.heure-bloc-prevision {
     display: grid;
     /* 1 rangé de haut et 7 colonnes qui auront une taille parfaitement partagée (1fr) */
     grid-template: 100px / repeat(7, 1fr);
 }
 
-.bloc-h, .bloc-j {
+.bloc-h,
+.bloc-j {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,9 +101,37 @@ h1 {
 }
 
 /* On met une bordure à drotie à tous le blocs SAUF le dernier (not:(last-child)) */
-.bloc-h:not(:last-child), .bloc-j:not(:last-child) {
+.bloc-h:not(:last-child),
+.bloc-j:not(:last-child) {
     border-right: 1px solid #f1f1f1;
 }
-.bloc-h p, .bloc-j p {
+
+.bloc-h p,
+.bloc-j p {
     margin: 5px;
+}
+
+.overlay-icone-chargement {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgb(59, 50, 50), rgb(22, 28, 29));
+    /* ease-out : animation plus lente vers la fin */
+    transition: opacity 1.1s ease-out;
+    /* On place l'image de chargement au dessus */
+    z-index: 1000;
+}
+
+.overlay-icone-chargement img {
+    width: 150px;
+    /* Tout ça pour centrer l'image de chargement */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.disparition {
+    /* On fait disparaitre l'image de chargement */
+    opacity: 0;
 }
