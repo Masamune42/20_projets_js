@@ -57,6 +57,9 @@ function fetchPokemonComplet(pokemon) {
             objPokemonFull.pic = pokeData.sprites.front_default;
             // Type du Pokémon
             objPokemonFull.type = pokeData.types[0].type.name;
+            if (pokeData.types[1] !== undefined) {
+                objPokemonFull.type2 = pokeData.types[1].type.name;
+            }
             // ID du Pokémon
             objPokemonFull.id = pokeData.id;
             // On recherche le Pokemon avec son id
@@ -96,7 +99,13 @@ function createCard(arr) {
         // On récupère la couleur par type du Pokémon
         let couleur = types[arr[i].type];
         // On applique la couleur de fond à la carte du Pokémon
-        carte.style.background = couleur;
+        if (arr[i].type2 == undefined) {
+            carte.style.background = couleur;
+        }
+        else {
+            console.log(arr[i].type2);
+            carte.style.background = `linear-gradient(180deg, ${types[arr[i].type]}, ${types[arr[i].type2]})`;
+        }
         // On crée un titre h5 pour le nom du Pokémon
         const txtCarte = document.createElement('h5');
         txtCarte.innerText = arr[i].name;
