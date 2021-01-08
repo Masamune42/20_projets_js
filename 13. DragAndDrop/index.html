@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag&Drop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>App sélection de photos !</h1>
+
+    <!-- Container choix / suppression image -->
+    <div class="container-choix">
+        <!-- Case de génération d'images -->
+        <div class="case" id="premiere-case">
+            <!-- Image de base -->
+            <div class="base" draggable="true"></div>
+        </div>
+        <!-- Case de suppression de l'image -->
+        <div id="destroy" class="destroy">Supprimer</div>
+    </div>
+
+    <!-- Container des cases d'images choisies -->
+    <div class="container-cases">
+        <div class="case"></div>
+        <div class="case"></div>
+        <div class="case"></div>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
