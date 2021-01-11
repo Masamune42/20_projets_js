@@ -11,7 +11,7 @@ let width = 20;
 function creationGrilleEtAliens() {
     let indexAttr = 0;
 
-    for (let i = 0; i < 400; i++) {
+    for (let i = 0; i < 240; i++) {
         // A chaque fois qu'on crée un 1er bloc il aura data-left = true
         if (indexAttr === 0) {
             const bloc = document.createElement('div');
