@@ -1,0 +1,60 @@
+.grille {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #000;
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    /* background fond étoilé */
+    background: url(ressources/background-black.png);
+    /* Animation pour faire défiler les background */
+    /* On laisse se répéter l'image (par défaut) */
+    animation: background-defile 5s linear infinite;
+}
+
+/* Définition de l'animation */
+@keyframes background-defile {
+    from {
+        background-position-y: 0px;
+    }
+
+    to {
+        background-position-y: 256px;
+    }
+}
+
+h3 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Taille des pixels */
+.grille div {
+    width: 25px;
+    height: 25px;
+}
+
+/* Vaisseau allié */
+.tireur {
+    background: url(ressources/vaisseau.png);
+    /* Rotation pour le faire se tourner devant les ennemis */
+    transform: rotate(180deg);
+    background-position: center;
+    background-size: contain;
+}
+
+/* Vaisseau alien */
+.alien {
+    background: url(ressources/ennemies.png);
+    background-position: center;
+    background-size: contain;
+}
+
+.boom {
+    background-color: red;
+}
+
+.laser {
+    background-color: orange;
+}
