@@ -20,6 +20,9 @@ function time() {
     temps--;
     tempsAffichage.innerText = `Temps : ${temps}`;
     scoreAffichage.innerText = `Score : ${score}`;
+    if(temps === 0){
+        clearInterval(timer);
+    }
 }
 
 // Prendre une phrase de l'API
